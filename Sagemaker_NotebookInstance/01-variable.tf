@@ -25,6 +25,6 @@ variable "NotebookInstance" {
         direct_internet_access  = optional(string, "Enabled")
         root-access             = optional(string, "Enabled")
         sub_identifier          = optional(string, null)
-        scg_identifier          = optional(list(string), [null])           
+        scg_identifier          = optional(list(string), null)           
     }))
 }
