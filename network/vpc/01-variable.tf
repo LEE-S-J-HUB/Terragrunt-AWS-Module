@@ -47,4 +47,12 @@ variable "Network" {
             tags                    = optional(map(string), null)
         })),null)             
     }))
+    validation {
+        condition = alltrue(flatten([ for Network in var.Network : [ for nat_gateway in Network.nat_gateway : length(compact([nat_gateway.sub_identifier, nat_gateway.ngw_name_prefix, nat_gateway.eip_name_prefix])) == 3 if nat_gateway.connectivity_type == "public"]]))
+        error_message = "Public Nat Gateway 생성을 위해서는 sub_identifier, ngw_name_prefix, eip_name_prefix 값이 필수 입니다."
+    }
+    validation {
+        condition = alltrue(flatten([ for Network in var.Network : [ for nat_gateway in Network.nat_gateway : length(compact([nat_gateway.sub_identifier, nat_gateway.ngw_name_prefix,] )) == 2 if nat_gateway.connectivity_type == "private"]]))
+        error_message = "Private Nat Gateway 생성을 위해서는 sub_identifier, ngw_name_prefix 값이 필수 입니다."
+    }
 }
