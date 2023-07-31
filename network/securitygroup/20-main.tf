@@ -1,7 +1,7 @@
 ### AWS Security Group
 resource "aws_security_group" "default" {
-    for_each            = { for scg in local.SecurityGroup_Optimize : join("-", [scg.net_env, scg.identifier]) => scg if length(local.SecurityGroup_Optimize) != 0 }
-    vpc_id              = var.vpc_id[join("-", [each.value.net_env, each.value.vpc_identifier])]
+    for_each            = { for scg in local.SecurityGroup_Optimize : scg.identifier => scg if length(local.SecurityGroup_Optimize) != 0 }
+    vpc_id              = var.vpc_id[each.value.vpc_identifier]
     name                = join("-", ["scg", local.Share_Middle_Name, each.value.net_env, each.value.name_prefix])
     description         = each.value.description
     tags                = merge(each.value.tags, {
@@ -17,7 +17,8 @@ resource "aws_security_group" "default" {
 }
 
 locals {
-    scg_ids = { for key, scg in aws_security_group.default : scg.name => scg.id if length(aws_security_group.default) != 0 }
+    # scg_ids = { for key, scg in aws_security_group.default : scg.name => scg.id if length(aws_security_group.default) != 0 }
+    scg_ids = { for key, scg in aws_security_group.default : key => scg.id if length(aws_security_group.default) != 0 }
 }
 
 resource "aws_security_group_rule" "sgr_cidr_blocks" {
