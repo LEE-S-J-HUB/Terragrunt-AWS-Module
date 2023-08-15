@@ -8,7 +8,7 @@ resource "aws_redshift_cluster" "default" {
     node_type                       = each.value.node_type
     cluster_type                    = each.value.cluster_type   
     cluster_subnet_group_name       = each.value.cluster_subnet_group_name
-    vpc_security_group_ids          = [ for scg_identifier in each.value.vpc_security_group_identifier : var.scg_id[join("-", [each.value.net_env, scg_identifier]) ] ]
+    vpc_security_group_ids          = [ for scg_identifier in each.value.vpc_security_group_identifier : var.scg_id[scg_identifier] ] 
     skip_final_snapshot             = each.value.skip_final_snapshot
     timeouts {
         create = "5m"
