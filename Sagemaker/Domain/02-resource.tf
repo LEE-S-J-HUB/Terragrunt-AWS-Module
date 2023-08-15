@@ -35,7 +35,7 @@ locals {
 #### AWS Sagemaker User Profile #################################################################################################
 resource "aws_sagemaker_user_profile" "default" {
     for_each    = { for smlu in var.sml_user_profile : smlu.identifier => smlu 
-                        if alltrue([local.smld_id != null, smlu.identifier != null, smlu.user_profile_name != null])} 
+                        if alltrue([ length(aws_sagemaker_domain.default) != 0, smlu.identifier != null, smlu.user_profile_name != null ])} 
     domain_id               = local.smld_id
     user_profile_name       = each.value.user_profile_name 
     user_settings {
@@ -55,4 +55,5 @@ resource "aws_sagemaker_user_profile" "default" {
             }
         }
     }
+    depends_on = [ aws_sagemaker_domain.default ]
 }
