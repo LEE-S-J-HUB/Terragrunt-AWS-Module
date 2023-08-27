@@ -2,7 +2,6 @@
 ## Reference : 
 - URL https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/redshift_cluster#example-usage
 
-
 ## Argument Reference
 The following arguments are supported:
 |Argument|Required|Description|
@@ -44,3 +43,13 @@ The following arguments are supported:
 |snapshot_copy|(Optional)|Configuration of automatic copy of snapshots from one region to another. Documented below.|
 |tags|(Optional)|A map of tags to assign to the resource. If configured with a provider default_tags configuration block present, tags with matching keys will overwrite those defined at the provider-level.|
 ---
+
+
+#### Node Type 
+
+| Node details| Type |
+|:---:|:---:|
+| ra3 | ra3.xlplus, ra3.4xlarge, ra3.16xlarge |
+| ds  | ds2.xlarge, ds2.8xlarge|
+| dc  | dc2.large, dc2.8xlarge, dc1.large, dc1.8xlarge |
+

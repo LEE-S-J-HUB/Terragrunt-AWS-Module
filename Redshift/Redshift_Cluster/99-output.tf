@@ -1,13 +1,17 @@
-# output "sagemaker_notebook_instnace" {
-#     value = aws_sagemaker_notebook_instance.default[*]
-# }
+output "rs_endpoint" {
+    description = "The Endpoint of the Redshift" 
+    value = { for key, value in aws_redshift_cluster.default : key => value.endpoint }   
+}
 
-# output "ni_name" {
-#     description = "The Name of the Notebook Instance"
-#     value = { for key, ni in aws_sagemaker_notebook_instance.default : key => ni.name}
-# }
+output "rs_port" {
+    description = "The port of the Redshift" 
+    value = { for key, value in aws_redshift_cluster.default : key => value.port }
+}
 
-# output "redshift" {
-#     value = aws_redshift_cluster.default[*]
-  
-# }
+output "re_logs_enable" {
+    value = { for key, value in aws_redshift_cluster.default : key => value.logging[0].enable }
+}
+
+output "re_publicly_accessible" {
+    value = { for key, value in aws_redshift_cluster.default : key => value.publicly_accessible }
+}
