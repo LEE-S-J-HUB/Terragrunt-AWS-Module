@@ -12,6 +12,7 @@ resource "aws_redshift_cluster" "default" {
     number_of_nodes                         = var.number_of_nodes
     cluster_type                            = var.cluster_type   
     cluster_subnet_group_name               = var.cluster_subnet_group_name
+    cluster_parameter_group_name            = var.cluster_parameter_group_name
     vpc_security_group_ids                  = [ for scg_identifier in var.vpc_security_group_identifier : var.scg_id[scg_identifier] ] 
     skip_final_snapshot                     = var.skip_final_snapshot
     allow_version_upgrade                   = var.allow_version_upgrade
@@ -20,8 +21,8 @@ resource "aws_redshift_cluster" "default" {
     logging {
         enable                              = var.logs_enable
         log_destination_type                = var.logs_enable ? var.log_destination_type : null
-        # bucket_name                         = alltrue([var.logs_enable, var.log_destination_type == "s3"]) ? vare.bucket_name : null
-        # s3_key_prefix                       = alltrue([var.logs_enable, var.log_destination_type == "s3"]) ? var.s3_key_prefix : null
+        bucket_name                         = alltrue([var.logs_enable, var.log_destination_type == "s3"]) ? var.bucket_name : null
+        s3_key_prefix                       = alltrue([var.logs_enable, var.log_destination_type == "s3"]) ? var.s3_key_prefix : null
         log_exports                         = alltrue([var.logs_enable, var.log_destination_type == "cloudwatch"]) ? var.log_exports : null
     }
     timeouts {

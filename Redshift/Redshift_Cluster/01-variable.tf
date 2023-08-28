@@ -68,6 +68,11 @@ variable "cluster_subnet_group_name" {
     default     = null
 }
 
+variable "cluster_parameter_group_name" {
+    type        = string
+    default     = null
+}
+
 variable "cluster_type" {
     description = "The cluster type to use. Either single-node or multi-node."
     type        = string
