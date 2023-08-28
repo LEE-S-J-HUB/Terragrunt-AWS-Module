@@ -122,6 +122,16 @@ variable "log_exports" {
     default     = ["connectionlog", "userlog"]
 }
 
+variable "availability_zone_relocation_enabled" {
+    type        = bool
+    default     = false
+}
+
+variable "enhanced_vpc_routing" {
+    type        = bool
+    default     = false
+}
+
 # variable "Redshift" {
 #     description = "Create Redshift"
 #     type = list(object({
